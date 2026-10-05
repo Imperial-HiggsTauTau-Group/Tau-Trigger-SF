@@ -184,6 +184,7 @@ def convert_trigger(corrs, year, **kwargs):
   trigger_types = kwargs_get(kwargs, 'triggertypes', trigtypes[year])
   correction_types = kwargs_get(kwargs, 'correctiontypes', corrtypes)
   outdir = kwargs_get(kwargs, 'outdir', 'jsons/')
+  higgsdnaformat = kwargs_get(kwargs, 'higgsdnaformat', False)
 
   """Tau trigger SF, pT- and dm dependent."""
   header("Tau trigger SF, pT- and dm dependent")
@@ -232,8 +233,9 @@ def convert_trigger(corrs, year, **kwargs):
     } #category:trigtype
   })
   print(f">>> Writing {fname}...")
-  with open(fname,'w') as fout:
-    JSONEncoder.write(corr,fname,maxlistlen=20)
+
+  out = CorrectionSet(schema_version=2, corrections=[corr]) if higgsdnaformat else corr
+  JSONEncoder.write(out,fname,maxlistlen=20)
   corrs.append(corr)
 
 
@@ -358,6 +360,7 @@ if __name__ == '__main__':
   argParser.add_argument('--correctiontypes',   action='store', nargs='*', default = None, help='Select correction types to convert', 
                             choices=['sf', 'eff_mc', 'eff_data'])
   argParser.add_argument('--outdir',   action='store', default = None, help='Select directory to store output')
+  argParser.add_argument('--higgsdnaformat',  action='store_true', default = False, help='Store output in HiggsDNA format')
   args = argParser.parse_args()
 
   os.makedirs(args.outdir, exist_ok=True)
@@ -365,7 +368,7 @@ if __name__ == '__main__':
   for year in args.years:
     idalgo = idalgo_dict.get(year, None)
     corrs = [ ] # list of corrections
-    convert_trigger(corrs, year, workingpoints=args.workingpoints, triggertypes=args.triggertypes, correctiontypes=args.correctiontypes, outdir=args.outdir)
+    convert_trigger(corrs, year, workingpoints=args.workingpoints, triggertypes=args.triggertypes, correctiontypes=args.correctiontypes, outdir=args.outdir, higgsdnaformat=args.higgsdnaformat)
     if not idalgo:
       makeRootFiles(corrs, year, workingpoints=args.workingpoints, triggertypes=args.triggertypes, correctiontypes=args.correctiontypes, outdir=args.outdir)
       compareSFs(corrs, year, workingpoints=args.workingpoints, triggertypes=args.triggertypes, correctiontypes=args.correctiontypes, outdir=args.outdir)
