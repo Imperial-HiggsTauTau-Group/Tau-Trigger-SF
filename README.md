@@ -45,7 +45,7 @@ python3 scripts/skimTuple.py --input output/ntuples_data_2024/*/*.root --era 202
 For running the MC skimming, additional ROOT files quantifying the levels of pileup in the data and MC samples need to be provided (someone in the TauPOG is responsible for making these I think). For example:
 
 ```
-python3 scripts/nano_postproc.py --input_dir output/ntuples_MC_2024 --era 2024 --type mc --pudata pileup/Data_PileUp_2024_69p2.root --pumc pileup/MC_PileUp_2024.root --output output/skim_mc_2024.root
+python3 scripts/skimTuple.py --input_dir output/ntuples_MC_2024 --era 2024 --type mc --pudata pileup/Data_PileUp_2024_69p2.root --pumc pileup/MC_PileUp_2024.root --output output/skim_mc_2024.root
 ```
 ___
 ## 3) Creating the turn-on curves
