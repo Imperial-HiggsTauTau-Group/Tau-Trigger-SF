@@ -5,6 +5,7 @@ keep vis_mass
 keep TrigObj_*
 keep npv
 keep npu
+keep npu_true
 keep run
 keep lumi
 keep event

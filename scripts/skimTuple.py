@@ -83,7 +83,7 @@ if selection_id == TauSelection.DeepTau or selection_id == TauSelection.PNet:
     df = df.Filter('( tau_idDeepTau2018v2p5VSmu  & 4) != 0')
 if args.type == 'mc':
     df = df.Filter('tau_charge + muon_charge == 0 && tau_gen_match == 5')
-    df = df.Define('weight', "PileUpWeightProvider::GetDefault().GetWeight(npu) * 1.0")
+    df = df.Define('weight', "PileUpWeightProvider::GetDefault().GetWeight(npu_true) * Generator_weight")
 else:
     df = df.Define('weight', "muon_charge != tau_charge ? 1. : -1.")
 

@@ -69,6 +69,7 @@ class tupleProducer(Module):
         self.out = wrappedOutputTree
         self.out.branch("npv", "F")
         self.out.branch("npu", "F")
+        self.out.branch("npu_true", "F")
         
         self.out.branch("muon_pt", "F")
         self.out.branch("muon_eta", "F")
@@ -135,18 +136,6 @@ class tupleProducer(Module):
         self.out.branch("tau_gen_charge", "I")
         self.out.branch("tau_sel", "I")
         self.out.branch("vis_mass", "F")
-        
-        '''self.out.branch("hlt_accept", "l")
-        self.out.branch("hlt_acceptAndMatch", "l")
-        
-        
-        self.out.branch("hltObj_types", "l", 1, "nTrigObj")        # "l" stands a 64bit unsigned integer (ULong64_t)
-        self.out.branch("hltObj_pt", "F", 1, "nTrigObj")           # "g" stands a long unsigned integer, stored as 64 bit (ULong_t)
-        self.out.branch("hltObj_eta", "F", 1, "nTrigObj")
-        self.out.branch("hltObj_phi", "F", 1, "nTrigObj")
-        self.out.branch("hltObj_hasPathName", "l", 1, "nTrigObj")  # maybe hasPathName show be "g" ? 
-        self.out.branch("filter_hltObj", "l", 1, "nTrigObj")
-        self.out.branch("filter_hash", "l", 1, "nTrigObj")'''
         
         self.out.branch("muon_trig_obj_idx", "I")
         self.out.branch("tau_trig_obj_idx", "I")
@@ -935,8 +924,10 @@ class tupleProducer(Module):
         # fill other
         if self.isMC:
             self.out.fillBranch("npu", pu.nPU)
+            self.out.fillBranch("npu_true", pu.nTrueInt)
         else:
             self.out.fillBranch("npu", 0)
+            self.out.fillBranch("npu_true", 0)
         self.out.fillBranch("npv", pv.npvs)
         # fill trigger sth ?
         self.out.fillBranch("muon_trig_obj_idx", muon_trig_obj_idx)
