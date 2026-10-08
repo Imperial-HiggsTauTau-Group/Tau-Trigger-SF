@@ -55,7 +55,7 @@ The script `scripts/createTurnOn_multi.py` computes the trigger efficiencies in 
 python3 scripts/createTurnOn_multi.py --input-data output/skim_data_2024.root --input-dy-mc output/skim_mc_2024.root --channels etau,mutau,ditau,ditaujet,ditauANDditaujet --id-algo PNet --working-points VTight --output output/turn_on_2024/TurnOn
 ```
 
-Unlike in early Run 3 (2022/23), in 2024 the set of events passing the `ditaujet` trigger is not a simple subset of those passing the `ditau` trigger. Hence, the command above includes an additional scale factor calculation corresponding to events which pass both the `ditau` and `ditaujet` triggers.
+Unlike in early Run 3 (2022/23), in 2024 the set of tau-legs passing the `ditau` trigger is not a simple subset of those passing the `ditaujet` trigger. Hence, the command above includes an additional scale factor calculation corresponding to events which pass both the `ditau` and `ditaujet` triggers.
 
 The choice of `--id-algo` and `--working-points` reflects the current preference of the $\mathrm{H}\rightarrow\tau\tau \ \mathcal{CP}$–working group for analysing late Run 3 data, where we have decided to use the offline selection criterion that hadronic tau candidates must pass the "VTight" working point for "PNetVSjet". For early Run 3 however, "DeepTau2018v2p5VSjet" is used instead. 
 ___
@@ -63,7 +63,7 @@ ___
 The script `scripts/fitTurnOn_multi.py` simply fits a curve to the histograms output by the previous step (and actually calculates the SFs). For example:
 
 ```
-python3 scripts/fitTurnOn_multi.py --input output/turn_on_2024/TurnOn.root --channels etau,mutau,ditau,ditaujet,ditauANDditaujet --working-points VTight --output jsons/fitTurnOn_2024.root
+python3 scripts/fitTurnOn_multi.py --input output/turn_on_2024/TurnOn.root --channels etau,mutau,ditau,ditaujet,ditauANDditaujet --working-points VTight --output jsons/fitTurnOn_2024
 ```
 ___
 ## 5) Converting to JSON
