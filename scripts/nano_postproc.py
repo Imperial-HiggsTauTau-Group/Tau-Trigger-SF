@@ -45,7 +45,7 @@ def build_input_files(args):
         with open(args.inputJson, 'r') as f:
             samples = json.load(f)
         if args.isMC:
-            files = samples['DYto2Tau_MLL_50_amcatnloFXFX']
+            files = samples['DYtoMuTauh_MLL_50_madgraphMLM']
         else:
             files = {}
             for key in samples.keys():
